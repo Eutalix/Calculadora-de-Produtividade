@@ -221,21 +221,21 @@
             recriaMax: (recriaMax / 1000) * area,
             engordaMin: (engordaMin / 1000) * area,
             engordaMax: (engordaMax / 1000) * area,
-            alevinagemMinQty: (alevinagemMin / 0.02) * area,
-            alevinagemMaxQty: (alevinagemMax / 0.02) * area,
-            recriaMinQty: (recriaMin / 0.02) * area,
-            recriaMaxQty: (recriaMax / 0.02) * area,
-            engordaMinQty: (engordaMin / 0.002) * area,
-            engordaMaxQty: (engordaMax / 0.002) * area
+            alevinagemMinQty: (alevinagemMin / 20) * area,
+            alevinagemMaxQty: (alevinagemMax / 20) * area,
+            recriaMinQty: (recriaMin / 300) * area,
+            recriaMaxQty: (recriaMax / 300) * area,
+            engordaMinQty: (engordaMin / 500) * area,
+            engordaMaxQty: (engordaMax / 500) * area
         };
     }
 
     function formatarValor(valor) {
-        return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return valor.toFixed(2);
     }
 
-    function formatarQuantidade(valor) {
-        return valor.toLocaleString('pt-BR', { maximumFractionDigits: 0 });
+    function formatarQuantidade(qtd) {
+        return Math.round(qtd);
     }
 </script>
 
