@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Produtividade - Viveiro e Açude</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden; /* Evita rolagem horizontal */
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            box-sizing: border-box;
+            overflow: auto; /* Garante que o conteúdo seja rolável se necessário */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        .tabela-condicoes {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 5px;
+            overflow: hidden; /* Remove bordas internas */
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tabela-condicoes th, .tabela-condicoes td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .tabela-condicoes th {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .tabela-condicoes tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .tabela-condicoes tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+                width: 100%;
+            }
+
+            input, select, button {
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            .tabela-condicoes th, .tabela-condicoes td {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .tabela-condicoes {
+                border: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Calculadora de Produtividade</h1>
+    <label for="comprimento">Comprimento (em metros):</label>
+    <input type="number" id="comprimento" placeholder="Digite o comprimento" required>
+
+    <label for="largura">Largura (em metros):</label>
+    <input type="number" id="largura" placeholder="Digite a largura" required>
+
+    <label for="tipoCriacao">Tipo de criação:</label>
+    <select id="tipoCriacao" required>
+        <option value="1">Viveiro</option>
+        <option value="2">Açude</option>
+    </select>
+
+    <label for="condicao">Condição:</label>
+    <select id="condicao" required>
+        <option value="1">Condição 1</option>
+        <option value="2">Condição 2</option>
+        <option value="3">Condição 3</option>
+        <option value="4">Condição 4</option>
+    </select>
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div id="resultado" class="resultado"></div>
+    <div id="error-message" class="error"></div>
+
+    <h2>Detalhes das Condições</h2>
+    <table class="tabela-condicoes">
+        <thead>
+            <tr>
+                <th>Condição</th>
+                <th>Alevinos (kg)</th>
+                <th>Recria (kg)</th>
+                <th>Engorda (kg)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Condição 1: com uso de aerador e sem troca de água, repondo as perdas por infiltração e evaporação</td>
+                <td>100 a 120</td>
+                <td>200 a 250</td>
+                <td>500 a 600</td>
+            </tr>
+            <tr>
+                <td>Condição 2: com uso de aerador e sem troca de água, repondo apenas as perdas por infiltração e evaporação</td>
+                <td>140 a 180</td>
+                <td>280 a 330</td>
+                <td>800 a 1000</td>
+            </tr>
+            <tr>
+                <td>Condição 3: sem uso de aerador, com 5% a 10% de troca de água por dia</td>
+                <td>140 a 180</td>
+                <td>280 a 330</td>
+                <td>800 a 1000</td>
+            </tr>
+            <tr>
+                <td>Condição 4: com uso de aerador, com 5% a 10% de troca de água por dia</td>
+                <td>200 a 350</td>
+                <td>350 a 600</td>
+                <td>1000 a 2000</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function calcular() {
+        const comprimento = parseFloat(document.getElementById('comprimento').value);
+        const largura = parseFloat(document.getElementById('largura').value);
+        const tipoCriacao = parseInt(document.getElementById('tipoCriacao').value);
+        const condicao = parseInt(document.getElementById('condicao').value);
+        const errorMessage = document.getElementById('error-message');
+
+        if (isNaN(comprimento) || comprimento <= 0 || isNaN(largura) || largura <= 0) {
+            errorMessage.textContent = 'Por favor, insira valores válidos para comprimento e largura.';
+            document.getElementById('resultado').innerHTML = '';
+            return;
+        } else {
+            errorMessage.textContent = '';
+        }
+
+        const areaTotal = comprimento * largura;
+        const areaAjustada = tipoCriacao === 2 ? areaTotal / 2 : areaTotal;
+
+        const resultados = calcularProdutividade(areaAjustada, condicao);
+        
+        document.getElementById('resultado').innerHTML = `
+            <h3>Resultados:</h3>
+            <p>Área ajustada: ${areaAjustada.toFixed(2)} m²</p>
+            <p>Alevinagem: ${resultados.alevinagemMin.toFixed(2)} kg a ${resultados.alevinagemMax.toFixed(2)} kg</p>
+            <p>Recria: ${resultados.recriaMin.toFixed(2)} kg a ${resultados.recriaMax.toFixed(2)} kg</p>
+            <p>Engorda: ${resultados.engordaMin.toFixed(2)} kg a ${resultados.engordaMax.toFixed(2)} kg</p>
+        `;
+    }
+
+    function calcularProdutividade(area, condicao) {
+        let alevinagemMin, alevinagemMax, recriaMin, recriaMax, engordaMin, engordaMax;
+
+        if (condicao === 1) {
+            alevinagemMin = 100; alevinagemMax = 120;
+            recriaMin = 200; recriaMax = 250;
+            engordaMin = 500; engordaMax = 600;
+        } else if (condicao === 2) {
+            alevinagemMin = 140; alevinagemMax = 180;
+            recriaMin = 280; recriaMax = 330;
+            engordaMin = 800; engordaMax = 1000;
+        } else if (condicao === 3 || condicao === 4) {
+            alevinagemMin = 140; alevinagemMax = 180;
+            recriaMin = 280; recriaMax = 330;
+            engordaMin = 800; engordaMax = 1000;
+            if (condicao === 4) {
+                alevinagemMin = 200; alevinagemMax = 350;
+                recriaMin = 350; recriaMax = 600;
+                engordaMin = 1000; engordaMax = 2000;
+            }
+        }
+
+        return {
+            alevinagemMin: (alevinagemMin / 1000) * area,
+            alevinagemMax: (alevinagemMax / 1000) * area,
+            recriaMin: (recriaMin / 1000) * area,
+            recriaMax: (recriaMax / 1000) * area,
+            engordaMin: (engordaMin / 1000) * area,
+            engordaMax: (engordaMax / 1000) * area
+        };
+    }
+</script>
+
+</body>
+</html>
