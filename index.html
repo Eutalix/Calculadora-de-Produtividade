@@ -93,12 +93,19 @@
             background-color: #333;
             color: #f0f0f0;
         }
-
+        
+        /* Adicionar este estilo ao CSS existente */
         .tabela-condicoes {
             margin-top: 20px;
             padding: 10px;
             background-color: #2d2d2d;
             border-radius: 5px;
+            overflow-x: auto; /* Adiciona barra de rolagem horizontal */
+        }
+        
+        .table-container {
+            width: 100%;
+            overflow-x: auto; /* Permite rolagem horizontal */
         }
 
         footer {
@@ -187,42 +194,50 @@
             <button onclick="calcular()">Calcular</button>
 
             <div class="resultado" id="resultado"></div>
-
+            
             <div class="tabela-condicoes">
-                <h3>Tabela de Condições</h3>
-                <table>
-                    <tr>
-                        <th>Condição</th>
-                        <th>Alevinos</th>
-                        <th>Recria</th>
-                        <th>Engorda</th>
-                    </tr>
-                    <tr>
-                        <td>Condição 1</td>
-                        <td>100 a 120</td>
-                        <td>200 a 250</td>
-                        <td>500 a 600</td>
-                    </tr>
-                    <tr>
-                        <td>Condição 2</td>
-                        <td>140 a 180</td>
-                        <td>280 a 330</td>
-                        <td>800 a 1000</td>
-                    </tr>
-                    <tr>
-                        <td>Condição 3</td>
-                        <td>140 a 180</td>
-                        <td>280 a 330</td>
-                        <td>800 a 1000</td>
-                    </tr>
-                    <tr>
-                        <td>Condição 4</td>
-                        <td>200 a 350</td>
-                        <td>350 a 600</td>
-                        <td>1000 a 2000</td>
-                    </tr>
-                </table>
-            </div>
+    <h3>Tabela de Condições</h3>
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>Condição</th>
+                <th>Descrição</th>
+                <th>Alevinos</th>
+                <th>Recria</th>
+                <th>Engorda</th>
+            </tr>
+            <tr>
+                <td>Condição 1</td>
+                <td>Sem uso de aerador e sem troca de água, repondo as perdas por infiltração e evaporação</td>
+                <td>100 a 120</td>
+                <td>200 a 250</td>
+                <td>500 a 600</td>
+            </tr>
+            <tr>
+                <td>Condição 2</td>
+                <td>Com uso de aerador e sem troca de água, repondo apenas as perdas por infiltração e evaporação</td>
+                <td>140 a 180</td>
+                <td>280 a 330</td>
+                <td>800 a 1000</td>
+            </tr>
+            <tr>
+                <td>Condição 3</td>
+                <td>Sem uso de aerador, com 5% a 10% de troca de água por dia</td>
+                <td>140 a 180</td>
+                <td>280 a 330</td>
+                <td>800 a 1000</td>
+            </tr>
+            <tr>
+                <td>Condição 4</td>
+                <td>Com uso de aerador, com 5% a 10% de troca de água por dia</td>
+                <td>200 a 350</td>
+                <td>350 a 600</td>
+                <td>1000 a 2000</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
         </div>
     </div>
 
